@@ -13,7 +13,7 @@ public class PostsSaveRequestDto {
     private String author;
 
     @Builder
-    pubilc PostsSaveRequestDto(String title, String content, String author) {
+    public PostsSaveRequestDto(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
