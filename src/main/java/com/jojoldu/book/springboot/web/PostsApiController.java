@@ -7,9 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
-import web.dto.PostsResponseDto;
-import web.dto.PostsSaveRequestDto;
-import web.dto.PostsUpdateRequestDto;
+import com.jojoldu.book.springboot.web.dto.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,5 +38,10 @@ public class PostsApiController {
         return postsService.findById(id);
     }
 
-
+    // 삭제
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
+    }
 }
