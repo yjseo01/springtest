@@ -1,7 +1,10 @@
-package web;
+package com.jojoldu.book.springboot.web;
 
 import com.jojoldu.book.springboot.service.PostsService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import web.dto.PostsResponseDto;
@@ -14,9 +17,15 @@ public class PostsApiController {
     private final PostsService postsService;
 
     // 등록
-    @PutMapping("/api/v1/posts")
+    /*
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
+    }
+    */
+    @PostMapping("/api/v1/posts")
+    public ResponseEntity<Long> save(@RequestBody PostsSaveRequestDto requestDto) {
+        Long id = postsService.save(requestDto);
+        return ResponseEntity.ok(id);
     }
 
     // 수정

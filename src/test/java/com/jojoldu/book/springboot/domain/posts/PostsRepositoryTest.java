@@ -1,4 +1,4 @@
-package com.jojoldu.book.springboot.web.domain.posts;
+package com.jojoldu.book.springboot.domain.posts;
 
 import ch.qos.logback.core.util.Loader;
 import com.jojoldu.book.springboot.domain.posts.Posts;

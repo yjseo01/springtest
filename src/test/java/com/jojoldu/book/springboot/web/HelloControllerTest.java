@@ -13,13 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
+//import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
 
 // JUnit5로 넘어오면서 @RunWith(SrpingRunner.class)에서 해당 어노테이션으로 바뀌었다.
 // 또한 @SpringBootTest를 적용하면 @ExtendWith(SpringExtension.class)를 포함하고 있어 생략이 가능하다.
 @MockBean(JpaMetamodelMappingContext.class)
 @ExtendWith(SpringExtension.class) // JUnit5로 넘어오면서 @RunWith(SrpingRunner.class) 대체
-@WebMvcTest(controllers = web.HelloController.class) // Web(Spring MVC)에 집중할 수 있는 어노테이션이다. 선언할 경우 @Controller, @ControllerAdvice등을 사용할 수 있다. 단, @Service, @Component, @Respository등은 사용할 수 없다.
+@WebMvcTest(controllers = HelloController.class) // Web(Spring MVC)에 집중할 수 있는 어노테이션이다. 선언할 경우 @Controller, @ControllerAdvice등을 사용할 수 있다. 단, @Service, @Component, @Respository등은 사용할 수 없다.
 public class HelloControllerTest {
 
     @Autowired // 스프링 빈(Bean)을 주입
@@ -30,7 +30,11 @@ public class HelloControllerTest {
     public void hello가_리턴된다() throws Exception {
         String hello = "hello";
         // 변경 후
-        mvc.perform(get("/hello").with(oauth2Login()))
+        //mvc.perform(get("/hello").with(oauth2Login()))
+        //        .andExpect(status().isOk())
+        //        .andExpect(content().string(hello));
+
+        mvc.perform(get("/hello"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(hello));
 
@@ -46,7 +50,12 @@ public class HelloControllerTest {
         String name = "hello";
         int amount = 1000;
         // 변경 후
-        mvc.perform(get("/hello/dto").with(oauth2Login()).param("name", name).param("amount", String.valueOf(amount)))
+        //mvc.perform(get("/hello/dto").with(oauth2Login()).param("name", name).param("amount", String.valueOf(amount)))
+        //        .andExpect(status().isOk())
+        //        .andExpect(jsonPath("$.name", is(name)))
+        //        .andExpect(jsonPath("$.amount", is(amount)));
+
+        mvc.perform(get("/hello/dto").param("name", name).param("amount", String.valueOf(amount)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(name)))
                 .andExpect(jsonPath("$.amount", is(amount)));
